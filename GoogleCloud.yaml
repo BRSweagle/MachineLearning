@@ -1,0 +1,8 @@
+---
+GoogleCloud:
+  zone: "us-central1-a"
+  offering: "PERSISTENT"
+  name: "vm-created-by-deployment-manager"
+  type: "compute.v1.instance"
+  deviceName: "disk1"
+  machineType: "zones/us-central1-a/machineTypes/n1-standard-1"
