@@ -1,68 +1,9 @@
 {
   "GoogleCloud": {
-    "resources": {
-      "vm-created-by-deployment-manager": {
-        "properties": {
-          "disks": {
-            "initializeParams": {
-              "deviceName": "disk1",
-              "machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
-              "name": "vm-created-by-deployment-manager",
-              "Offering": "PERSISTENT",
-              "sourceImage": "projects/debian-cloud/global/images/family/debian-9",
-              "type": "compute.v1.instance",
-              "zone": "us-central1-a"
-            },
-            "deviceName": "disk1",
-            "machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
-            "name": "vm-created-by-deployment-manager",
-            "Offering": "PERSISTENT",
-            "sourceImage": "projects/debian-cloud/global/images/family/debian-9",
-            "type": "compute.v1.instance",
-            "zone": "us-central1-a"
-          },
-          "networkInterfaces": {
-            "null": {
-              "deviceName": "disk1",
-              "machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
-              "name": "vm-created-by-deployment-manager",
-              "network": "global/networks/default",
-              "Offering": "PERSISTENT",
-              "type": "compute.v1.instance",
-              "zone": "us-central1-a"
-            },
-            "deviceName": "disk1",
-            "machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
-            "name": "vm-created-by-deployment-manager",
-            "Offering": "PERSISTENT",
-            "type": "compute.v1.instance",
-            "zone": "us-central1-a"
-          },
-          "deviceName": "disk1",
-          "machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
-          "name": "vm-created-by-deployment-manager",
-          "Offering": "PERSISTENT",
-          "type": "compute.v1.instance",
-          "zone": "us-central1-a"
-        },
-        "deviceName": "disk1",
-        "machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
-        "name": "vm-created-by-deployment-manager",
-        "Offering": "PERSISTENT",
-        "type": "compute.v1.instance",
-        "zone": "us-central1-a"
-      },
-      "deviceName": "disk1",
-      "machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
-      "name": "vm-created-by-deployment-manager",
-      "Offering": "PERSISTENT",
-      "type": "compute.v1.instance",
-      "zone": "us-central1-a"
-    },
     "deviceName": "disk1",
     "machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
     "name": "vm-created-by-deployment-manager",
-    "Offering": "PERSISTENT",
+    "offering": "PERSISTENT",
     "type": "compute.v1.instance",
     "zone": "us-central1-a"
   }
