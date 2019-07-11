@@ -1,1 +1,182 @@
-{"azureLinuxVm":{"outputs":{"adminUsername":{"type":"string","value":"[parameters('adminUsername')]"}},"schema":"https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json","variables":{"vmName":"[concat(parameters('projectName'), '-vm')]","vNetAddressPrefixes":"10.0.0.0/16","vNetName":"[concat(parameters('projectName'), '-vnet')]","publicIPAddressName":"[concat(parameters('projectName'), '-ip')]","vNetSubnetName":"default","vNetSubnetAddressPrefix":"10.0.0.0/24","networkInterfaceName":"[concat(parameters('projectName'), '-nic')]","networkSecurityGroupName":"[concat(parameters('projectName'), '-nsg')]"},"resources":{"[variables('vNetName')]":{"apiVersion":"2018-11-01","name":"[variables('vNetName')]","location":"[parameters('location')]","type":"Microsoft.Network/virtualNetworks","properties":{"addressSpace":{"addressPrefixes":{"[variables('vNetAddressPrefixes')]":{}}},"subnets":{"[variables('vNetSubnetName')]":{"name":"[variables('vNetSubnetName')]","properties":{"addressPrefix":"[variables('vNetSubnetAddressPrefix')]"}}}}},"[variables('vmName')]":{"apiVersion":"2018-10-01","dependsOn":{"[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]":{}},"name":"[variables('vmName')]","location":"[parameters('location')]","type":"Microsoft.Compute/virtualMachines","properties":{"hardwareProfile":{"vmSize":"Standard_D2s_v3"},"storageProfile":{"imageReference":{"offer":"UbuntuServer","publisher":"Canonical","sku":"18.04-LTS","version":"latest"},"osDisk":{"createOption":"fromImage"}},"networkProfile":{"networkInterfaces":{"[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]":{"id":"[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"}}},"osProfile":{"adminUsername":"[parameters('adminUsername')]","computerName":"[variables('vmName')]","linuxConfiguration":{"disablePasswordAuthentication":"true","ssh":{"publicKeys":{"null":{"path":"[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]","keyData":"[parameters('adminPublicKey')]"}}}}}}},"[variables('publicIPAddressName')]":{"apiVersion":"2018-11-01","name":"[variables('publicIPAddressName')]","location":"[parameters('location')]","sku":{"name":"Basic"},"type":"Microsoft.Network/publicIPAddresses","properties":{"publicIPAllocationMethod":"Dynamic"}},"[variables('networkInterfaceName')]":{"apiVersion":"2018-11-01","dependsOn":{"[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]":{},"[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]":{},"[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]":{}},"name":"[variables('networkInterfaceName')]","location":"[parameters('location')]","type":"Microsoft.Network/networkInterfaces","properties":{"ipConfigurations":{"ipconfig1":{"name":"ipconfig1","properties":{"subnet":{"id":"[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vNetName'), variables('vNetSubnetName'))]"},"privateIPAllocationMethod":"Dynamic","publicIPAddress":{"id":"[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"}}}}}},"[variables('networkSecurityGroupName')]":{"apiVersion":"2018-11-01","name":"[variables('networkSecurityGroupName')]","location":"[parameters('location')]","type":"Microsoft.Network/networkSecurityGroups","properties":{"securityRules":{"ssh_rule":{"name":"ssh_rule","properties":{"destinationAddressPrefix":"*","protocol":"Tcp","access":"Allow","sourcePortRange":"*","sourceAddressPrefix":"*","destinationPortRange":"22","description":"Locks inbound down to ssh default port 22.","priority":"123","direction":"Inbound"}}}}}},"parameters":{"adminPublicKey":{"metadata":{"description":"Specifies the SSH rsa public key file as a string. Use \"ssh-keygen -t rsa -b 2048\" to generate your SSH key pairs."},"type":"string"},"adminUsername":{"metadata":{"description":"Specifies a username for the Virtual Machine."},"type":"string"},"location":{"metadata":{"description":"Specifies the location for all resources."},"defaultValue":"[resourceGroup().location]","type":"string"},"projectName":{"metadata":{"description":"Specifies a name for generating resource names."},"type":"string"}},"contentVersion":"1.0.0.0"}}
+{
+  "azureLinuxVm": {
+    "outputs": {
+      "adminUsername": {
+        "type": "string",
+        "value": "[parameters('adminUsername')]"
+      }
+    },
+    "parameters": {
+      "adminPublicKey": {
+        "metadata": {
+          "description": "Specifies the SSH rsa public key file as a string. Use \"ssh-keygen -t rsa -b 2048\" to generate your SSH key pairs."
+        },
+        "type": "string"
+      },
+      "adminUsername": {
+        "metadata": {
+          "description": "Specifies a username for the Virtual Machine."
+        },
+        "type": "string"
+      },
+      "location": {
+        "metadata": {
+          "description": "Specifies the location for all resources."
+        },
+        "defaultValue": "[resourceGroup().location]",
+        "type": "string"
+      },
+      "projectName": {
+        "metadata": {
+          "description": "Specifies a name for generating resource names."
+        },
+        "type": "string"
+      }
+    },
+    "resources": {
+      "[variables('networkInterfaceName')]": {
+        "dependsOn": {
+          "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]": {},
+          "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]": {},
+          "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]": {}
+        },
+        "properties": {
+          "ipConfigurations": {
+            "ipconfig1": {
+              "properties": {
+                "publicIPAddress": {
+                  "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
+                },
+                "subnet": {
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vNetName'), variables('vNetSubnetName'))]"
+                },
+                "privateIPAllocationMethod": "Dynamic"
+              },
+              "name": "ipconfig1"
+            }
+          }
+        },
+        "apiVersion": "2018-11-01",
+        "location": "[parameters('location')]",
+        "name": "[variables('networkInterfaceName')]",
+        "type": "Microsoft.Network/networkInterfaces"
+      },
+      "[variables('networkSecurityGroupName')]": {
+        "properties": {
+          "securityRules": {
+            "ssh_rule": {
+              "properties": {
+                "access": "Allow",
+                "description": "Locks inbound down to ssh default port 22.",
+                "destinationAddressPrefix": "*",
+                "destinationPortRange": "22",
+                "direction": "Inbound",
+                "priority": "123",
+                "protocol": "Tcp",
+                "sourceAddressPrefix": "*",
+                "sourcePortRange": "*"
+              },
+              "name": "ssh_rule"
+            }
+          }
+        },
+        "apiVersion": "2018-11-01",
+        "location": "[parameters('location')]",
+        "name": "[variables('networkSecurityGroupName')]",
+        "type": "Microsoft.Network/networkSecurityGroups"
+      },
+      "[variables('publicIPAddressName')]": {
+        "properties": {
+          "publicIPAllocationMethod": "Dynamic"
+        },
+        "sku": {
+          "name": "Basic"
+        },
+        "apiVersion": "2018-11-01",
+        "location": "[parameters('location')]",
+        "name": "[variables('publicIPAddressName')]",
+        "type": "Microsoft.Network/publicIPAddresses"
+      },
+      "[variables('vmName')]": {
+        "dependsOn": {
+          "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]": {}
+        },
+        "properties": {
+          "hardwareProfile": {
+            "vmSize": "Standard_D2s_v3"
+          },
+          "networkProfile": {
+            "networkInterfaces": {
+              "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]": {
+                "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
+              }
+            }
+          },
+          "osProfile": {
+            "linuxConfiguration": {
+              "ssh": {
+                "publicKeys": {
+                  "null": {
+                    "keyData": "[parameters('adminPublicKey')]",
+                    "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]"
+                  }
+                }
+              },
+              "disablePasswordAuthentication": "true"
+            },
+            "adminUsername": "[parameters('adminUsername')]",
+            "computerName": "[variables('vmName')]"
+          },
+          "storageProfile": {
+            "imageReference": {
+              "offer": "UbuntuServer",
+              "publisher": "Canonical",
+              "sku": "18.04-LTS",
+              "version": "latest"
+            },
+            "osDisk": {
+              "createOption": "fromImage"
+            }
+          }
+        },
+        "apiVersion": "2018-10-01",
+        "location": "[parameters('location')]",
+        "name": "[variables('vmName')]",
+        "type": "Microsoft.Compute/virtualMachines"
+      },
+      "[variables('vNetName')]": {
+        "properties": {
+          "addressSpace": {
+            "addressPrefixes": {
+              "[variables('vNetAddressPrefixes')]": {}
+            }
+          },
+          "subnets": {
+            "[variables('vNetSubnetName')]": {
+              "properties": {
+                "addressPrefix": "[variables('vNetSubnetAddressPrefix')]"
+              },
+              "name": "[variables('vNetSubnetName')]"
+            }
+          }
+        },
+        "apiVersion": "2018-11-01",
+        "location": "[parameters('location')]",
+        "name": "[variables('vNetName')]",
+        "type": "Microsoft.Network/virtualNetworks"
+      }
+    },
+    "variables": {
+      "networkInterfaceName": "[concat(parameters('projectName'), '-nic')]",
+      "networkSecurityGroupName": "[concat(parameters('projectName'), '-nsg')]",
+      "publicIPAddressName": "[concat(parameters('projectName'), '-ip')]",
+      "vmName": "[concat(parameters('projectName'), '-vm')]",
+      "vNetAddressPrefixes": "10.0.0.0/16",
+      "vNetName": "[concat(parameters('projectName'), '-vnet')]",
+      "vNetSubnetAddressPrefix": "10.0.0.0/24",
+      "vNetSubnetName": "default"
+    },
+    "contentVersion": "1.0.0.0",
+    "schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json"
+  }
+}
