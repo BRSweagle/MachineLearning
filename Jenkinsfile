@@ -8,7 +8,7 @@ pipeline {
             echo 'Build Start'
           }
         }
-        stage('error') {
+        stage('Upload Config') {
           steps {
             SWEAGLEUpload(actionName: 'uploadConfig', fileLocation: '/Users/boondock/Documents/GitHub/MachineLearning/ServerDefs.json', format: 'json', nodePath: 'WebApp,Environments', allowDelete: true, markFailed: true, tag: 'V${BUILD_ID}', description: 'DataUpload', showResults: true, onlyParent: true, withSnapshot: true)
           }
