@@ -1,6 +1,6 @@
 {
 	"ServerTemplates": {
-		"AL-PRD": {
+		"AL-EMEA": {
 			"adminPasswordKey": "aiuginu2n23",
 			"adminUsername": "CentralPRD",
 			"authenticationType": "SSH",
@@ -8,22 +8,22 @@
 			"offering": "PERSISTENT",
 			"ubuntuOSVersion": "6.4.7"
 		},
-		"AL-TST": {
+		"AL-APAC": {
 			"adminPasswordKey": "LNIAF",
 			"adminUsername": "Centraltst",
 			"authenticationType": "Local",
 			"offering": "LOW",
 			"ubuntuOSVersion": "6.4.7"
 		},
-		"AL-UAT": {
+		"AL-AMERICA": {
 			"adminPasswordKey": "vxniu1389r",
 			"adminUsername": "CentralUAT",
 			"authenticationType": "SSH",
-			"location": "EMEA-07",
+			"location": "AMERICA-07",
 			"offering": "HA",
 			"ubuntuOSVersion": "6.4.7"
 		},
-		"GCP-PRD": {
+		"GCP-EMEA": {
 			"dbhHost": "THA-EMEA",
 			"deviceName": "PRD",
 			"installPath": "/opt/GOOGLE/",
@@ -34,7 +34,7 @@
 			"url": "HTTPS://n1-standard",
 			"zone": "EMEA-central1-a"
 		},
-		"GCP-TST": {
+		"GCP-AMERICA": {
 			"deviceName": "TST",
 			"machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
 			"machineName": "vm-created-by-deployment-manager",
@@ -42,7 +42,7 @@
 			"type": "compute.v1.instance",
 			"zone": "us-central1-a"
 		},
-		"GCP-UAT": {
+		"GCP-APJ": {
 			"deviceName": "UAT",
 			"machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
 			"machineName": "vm-created-by-deployment-manager",
@@ -50,7 +50,21 @@
 			"type": "compute.v1.instance",
 			"zone": "EMEA-central1-a"
 		},
-		"W-PRD": {},
-		"W-UAT": {}
+		"W-NORTH": {
+			"deviceName": "UAT",
+			"machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
+			"machineName": "vm-created-by-deployment-manager",
+			"offering": "PERSISTENT",
+			"type": "compute.v1.instance",
+			"zone": "EMEA-central1-a"
+		},
+		"W-SOUTH": {
+			"deviceName": "UAT",
+			"machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
+			"machineName": "vm-created-by-deployment-manager",
+			"offering": "PERSISTENT",
+			"type": "compute.v1.instance",
+			"zone": "EMEA-central1-a"
+		}
 	}
 }
