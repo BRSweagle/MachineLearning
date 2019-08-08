@@ -6,6 +6,8 @@ pipeline {
         stage('Build') {
           steps {
             echo 'Build Start'
+            sh '''#! /bin/sh
+git pull'''
           }
         }
         stage('Upload Config') {
