@@ -1,0 +1,56 @@
+{
+	"ServerTemplates": {
+		"AL-PRD": {
+			"adminPasswordKey": "aiuginu2n23",
+			"adminUsername": "CentralPRD",
+			"authenticationType": "SSH",
+			"location": "EMEA-01",
+			"offering": "PERSISTENT",
+			"ubuntuOSVersion": "6.4.7"
+		},
+		"AL-TST": {
+			"adminPasswordKey": "LNIAF",
+			"adminUsername": "Centraltst",
+			"authenticationType": "Local",
+			"offering": "LOW",
+			"ubuntuOSVersion": "6.4.7"
+		},
+		"AL-UAT": {
+			"adminPasswordKey": "vxniu1389r",
+			"adminUsername": "CentralUAT",
+			"authenticationType": "SSH",
+			"location": "EMEA-07",
+			"offering": "HA",
+			"ubuntuOSVersion": "6.4.7"
+		},
+		"GCP-PRD": {
+			"dbhHost": "THA-EMEA",
+			"deviceName": "PRD",
+			"installPath": "/opt/GOOGLE/",
+			"machineType": "zones/EMEA-central1-a/machineTypes/n1-standard-1",
+			"machineName": "GoogleCloud - Win 2018",
+			"offering": "PERSISTENT",
+			"type": "SSH Public Key",
+			"url": "HTTPS://n1-standard",
+			"zone": "EMEA-central1-a"
+		},
+		"GCP-TST": {
+			"deviceName": "TST",
+			"machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
+			"machineName": "vm-created-by-deployment-manager",
+			"offering": "LOW",
+			"type": "compute.v1.instance",
+			"zone": "us-central1-a"
+		},
+		"GCP-UAT": {
+			"deviceName": "UAT",
+			"machineType": "zones/us-central1-a/machineTypes/n1-standard-1",
+			"machineName": "vm-created-by-deployment-manager",
+			"offering": "PERSISTENT",
+			"type": "compute.v1.instance",
+			"zone": "EMEA-central1-a"
+		},
+		"W-PRD": {},
+		"W-UAT": {}
+	}
+}
