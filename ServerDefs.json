@@ -4,7 +4,7 @@
 			"adminPasswordKey": "aiuginu2n23",
 			"adminUsername": "CentralPRD",
 			"authenticationType": "SSH",
-			"location": "EMEA-01",
+			"location": "EMEA-02",
 			"offering": "PERSISTENT",
 			"ubuntuOSVersion": "6.4.7"
 		},
