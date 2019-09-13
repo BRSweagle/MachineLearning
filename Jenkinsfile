@@ -20,7 +20,7 @@ git pull'''
     stage('RunML') {
       steps {
         sh '''#! /bin/sh
-curl \'https://devtest2.sweagle.com/api/v1/data/ml/recognize?downLimit=100\' --data "path=Webapp" --header "authorization: bearer 47651f6b-50f4-4e55-8734-aea2b11e1032"
+curl \'https://testing.sweagle.com/api/v1/data/ml/recognize?downLimit=100\' --data "path=MachineLearning" --header "authorization: bearer "
 '''
       }
     }
